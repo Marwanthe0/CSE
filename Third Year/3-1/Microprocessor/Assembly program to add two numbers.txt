@@ -1,0 +1,118 @@
+Assembly program to add two numbers:
+
+.model small
+.stack 100h
+.data
+	a dw 2
+	b dw 3
+	res dw ?
+.code
+   main proc
+	mov ax, a
+	add ax, b
+	mov res, ax
+	mov ah, 4ch
+	int 21h
+   main endp
+end main
+
+
+Assembly program to subtract 2numbers:
+.model small
+.stack 100h
+.data
+	num1 dw 8
+	num2 dw 5
+	res dw ?
+.code
+   main proc
+	mov ax, a
+	sub ax,b
+	mov res,ax
+	mov ah,4ch
+	int 21h
+   main endp
+end main
+
+Assembly program to multiply 2numbers:
+.model small
+.stack 100h
+.data
+	x dw 2
+	y dw 3
+	res dw ?
+.code
+   main proc
+	mov ax,x
+	mov bx,y
+	mul bx
+	mov res,ax
+	mov ah,4ch
+	int 21h
+   main endp
+end main
+
+Assembly program to divided 2numbers:
+.model small
+.stack 100h
+.data
+	a dw 8
+	b dw 2
+	quot dw ?
+.code
+   main proc
+	mov ax, a
+	mov dx, 0
+	mov bx, b
+	div bx
+	mov quot, ax
+	mov ah, 4ch
+	int 21h
+   main endp
+end main
+
+Assembly program to add numbers using an array:
+.model small
+.stack 100h
+.data
+	arr db 1,2,3,4,5
+	res db 0
+.code
+   main proc
+	mov ax, @data
+	mov ds, ax
+
+	mov cx, 5
+	mov al, 0
+	mov si, 0
+
+      again:
+	add al, arr[si]
+	inc si
+	loop again
+
+	mov sum, al
+
+	mov ah, 4ch
+	int 21h
+   main endp
+end main
+
+Assembly program to print message hello:
+.model small
+.stack 100h
+.data
+	message db "Hello$"
+.code 
+  main proc
+	mov ax, @data
+	mov ds, ax
+
+	mov ah, 09h
+	lea dx, message
+	int 21h
+
+	mov ah, 4ch
+	int 21h
+  main endp
+end main
