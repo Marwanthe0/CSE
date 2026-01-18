@@ -1,0 +1,100 @@
+8086
+
+16bit data bus/16bit registers/16 bit alu
+20bit address bus
+1MB of memory
+clock speed of 5-10MHz
+supports multiprogramming
+pipelined architecuture
+
+Architecture of 8086:
+Divided into 2main functional units:
+1. Bus interface unit:
+->Handles communication with memory and i/o
+->fetches instruction from memory
+->generates physical address using segment + offset
+->contains segment registers
+	->stack segment
+	->code segment
+	->data segment
+	->extra segment
+->contains instruction pointer register
+->contains instruction queue of 6bytes
+
+2. Execution unit
+->Decodes the instruction
+->executes the instruction
+->contains ALU and registers
+->control unit controls the operations.
+
+8086 Has 14 registers
+Accumulator(Ax), Base(Bx), Counter(Cx), Data(Dx), SS,CS,DS,ES, Stack pointer(SP), Base Pointer(BP), Source Index(SI), Destination Index(DI), Instruction Pointer(IP), Flags. 
+
+8086 has 9 flag Registers
+Carry, Zero, Sign, Overflow, Parity, Auxiliary, Direction, Interrupt, Trap Flag
+
+Total memory of 1MB divided into segments of 64KB each
+Physical address = segment*10h + offset
+
+Addressing Mode is a method used by the CPU to specify the location of the operands in an instruction.
+It has 12 Addressing Mode:
+Register, Direct, immediate, Register indirect, Based, Indexed, Based indexed, Direct I/O, Indirect I/o, Relative, Implied Addressing Mode
+
+Instruction Sets of 8086
+1. Data Transfer
+MOV, XCHG, PUSH, POP, IN, OUT, LEA
+2. ARITHMETIC
+ADD, ADC, SUB, SBB, MUL, DIV, IMUL, IDIV, INC, DEC, NEG, CMP
+2. LOGICAL
+AND, OR, NOT, XOR, TEST
+3.STRING: These are used to process a sequence of bytes
+MOVS, CMPS, LODS, SCAS, STOS
+4. CONTROL TRANSFER
+LOOP, JNZ, CALL, RET, JZ, JMP, JC, JNC
+
+3 TYPES OF INTERRUPTS
+NMI-> Non Maskable Interrupts
+INTR-> Maskable Interrupts
+INT Type-> Software Based interrupt
+
+Pin Diagram: 40 Pins
+AD0-AD15 -> Multiplexed Address/Data Bus Pin
+A16-A19 -> Higher Address Bus
+INTR/NMI->Interrupts
+BHE(Binary High Enable)->  Enables upper data bus
+RD-> Read operation
+Wr->Write operation
+CLK, RESET-> clock and reset signal
+MN/MX -> Select Minimum Maximum Mode
+Ready-> slow device synchronization
+RESET-> Restarts processor
+
+Microprocessor is a Programmable IC that acts as a cpu of a computer. It performs arithmetic,Logic and control operations.
+
+Main components of a microprocessor:
+->Arithmetic and Logic unit: Performs arithmetic and logical operations
+->control unit: Coordinates and directs all the operations
+->Registers: Temporary Fast and small memory inside the cpu
+->Busses: Set of wires to provide pathway for data, address and control signals.
+
+Embedded system: is special purpose electronic system that is built for performing specific tasks, often in real time.
+Characteristics of embedded system:
+->Performs dedicated tasks
+->low power consumption.
+->compact in size
+-> often realtime.
+
+Types of busses:
+1. Address Bus: Unidirectional, contains memory address and instruction address.
+2. Data Bus: Bidirectional, Contains actual data inside the CPU
+3. Control Bus: Carries Control signal.
+
+Ram: Random access memory is a volatile temporary storage that stores the current executing programs and forgets all of it's information if power cuts.
+Rom: Read only memory is permanent, non-volatile memory, which is bigger in capacity than ram and contains the os/Bios and firmware of a computer.
+
+Main functions of the cpu:
+Fetches-> Decodes->Executes.
+Stores 
+
+Embedded system is a special purpose computer system that is designed to perform dedicated tasks inside a larger system.
+
