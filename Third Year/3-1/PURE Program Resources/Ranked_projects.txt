@@ -1,0 +1,65 @@
+1. AI for Open Innovation in Life Sciences: Explainable Models, Open Data, and Clinical Decision Support
+Artificial intelligence (AI) is rapidly transforming life sciences and healthcare, from disease prediction to drug discovery and clinical decision support. However, key challenges remain around data quality, model transparency, and the ethical use of AI in scientific research. At the same time, the rise of open data, open-source tools, and collaborative platforms is reshaping how innovation happens in life sciences.
+
+This project explores how AI can enable open innovation in life sciences by leveraging publicly available healthcare and biomedical datasets, as well as open-source machine learning tools and pre-trained models. Students will develop and evaluate machine learning and deep learning models for clinical or biomedical prediction tasks, while benchmarking performance using standard evaluation metrics.
+
+An emphasis will be placed on explainable / responsible AI approaches to improve model transparency and trust, as well as on critical questions such as: Do we need more data, or better use of existing data? and How can we balance innovation with research ethics and responsible AI use?
+
+Students will also have the opportunity to frame their work within the context of open science and collaborative innovation ecosystems, exploring how AI can accelerate discovery while remaining accessible and reproducible.
+
+As part of the project, students will be encouraged to prepare and submit their work to a 2026 Open Innovation in Life Sciences Pitch Fest, gaining experience in communicating technical ideas, positioning their solutions within real-world challenges, and engaging with broader research and innovation communities.
+
+Prior experience in Python, machine learning, and data analytics is beneficial but not required. Students with motivation and a willingness to learn are highly encouraged to apply.
+
+2. Hack the Planet: Building Sustainable Smart Cities with AI and IoT
+Modern smart cities are powered by interconnected Internet of Things (IoT) systems and artificial intelligence (AI) that continuously monitor and respond to environmental changes. From air quality and energy consumption to traffic dynamics and climate patterns, urban data is transforming how cities operate, adapt, and evolve.
+
+In this project, students will design and develop machine learning-driven solutions to analyze real-world urban and environmental data. Using open-access datasets from global smart city platforms and public sensor networks, they will build end-to-end data pipelines and apply AI techniques for prediction, classification, and anomaly detection. The project also explores efficient and lightweight AI models suitable for deployment in edge computing environments within IoT ecosystems.
+
+Students will gain hands-on experience working with realistic datasets, tackling sustainability challenges, and building intelligent systems that can contribute to greener, more resilient cities.
+
+Prior experience in Python, machine learning, and data analytics is beneficial but not required. Students with motivation and a willingness to learn are highly encouraged to apply.
+
+3. Genome-wide Computational Analysis of UV Damage, Repair, and Mutagenesis
+This summer research project will focus on the computational analysis of genome-wide maps of UV-induced DNA damage, DNA repair, and mutation patterns. Ultraviolet (UV) light creates lesions in DNA that can disrupt replication and transcription, and cells rely on repair systems to remove this damage. At the same time, unrepaired or misrepaired lesions can lead to mutations, making UV exposure an important model for understanding how DNA damage shapes genome stability and mutagenesis.
+
+The project will investigate how UV damage formation, repair efficiency, and mutation frequencies vary across the genome, and how these patterns relate to genomic features such as gene structure, transcription, chromatin context, and sequence composition. The student will work with existing high-throughput datasets to identify relationships between damage, repair, and mutational outcomes, with the goal of better understanding the principles that govern UV-induced genome instability.
+
+This is a fully computational project and will involve data analysis, integration of genome-wide sequencing datasets, visualization of genomic patterns, and development of reproducible analysis workflows. We welcome students from computer science, data science, bioinformatics, computational biology, and related fields. Coding experience is recommended, as the project will involve large-scale biological data analysis. This project is ideal for students interested in DNA repair, mutagenesis, genomics, and computational biology. Please send your letter to the advisor in parallel to your official application.
+
+4. A Position-Level Phylogenetic Atlas of the Human Genome
+This summer research project aims to characterize the evolutionary history of each position in the human genome through a phylogeny-aware framework. Rather than treating the genome as a uniform sequence, the project will investigate how individual nucleotide positions differ in their evolutionary constraints, rates of change, lineage specificity, and conservation patterns across species. By integrating multi-species genome alignments with phylogenetic models, the student will help generate position-level evolutionary profiles that reveal which parts of the human genome are deeply conserved, which are rapidly evolving, and which may carry clade-specific signatures.
+
+The project will provide a foundation for interpreting the functional importance of genomic positions beyond simple conservation scores. The resulting profiles may help distinguish positions under strong purifying selection, positions with lineage-dependent flexibility, and positions that may have contributed to human-specific or primate-specific traits. Depending on progress and the student’s background, the work may involve computational analysis of comparative genomics data, development of scoring strategies, visualization of evolutionary patterns across genomic regions, and exploration of how these profiles can support variant interpretation and functional genomics. This project is ideal for a student interested in evolution, genomics, and computational biology.
+
+We welcome students from computer science, data science, bioinformatics, computational biology, and related fields. Prior coding experience is recommended, as the project will involve computational analysis and handling of large-scale genomics data. This project is especially suitable for students interested in evolution, genomics, and data-driven biological discovery. Please submit a letter to the advisor in parallel to your official application. Priority will be given to the most suitable and highly motivated candidates.
+
+5. An Agentic Pipeline for the Digital Transformation of Historical Manuscripts
+This project explores a novel methodology to transform unstructured historical manuscripts into structured, searchable, and interconnected knowledge bases using a multi-agent AI system. Rather than treating historical texts as static documents, we aim to build a dynamic pipeline where a coordinated set of AI agents "reads" and analyzes historical data.
+
+At the core of this system is an Orchestrator Agent, which segments manuscripts into semantic units. These units are then processed by Specialized Agents designed for specific tasks: identifying historical figures, extracting toponyms (place names), tracing military/diplomatic events, or reconstructing complex timelines. This modular approach allows us to preserve the linguistic nuances of different historical periods while achieving high-scale data extraction.
+
+Students will gain hands-on experience in Digital Humanities, prompt engineering for specialized agents, and the fundamentals of Graph databases. This project sits at the intersection of History and Data Science, aiming to redefine how we explore primary sources in the digital age.
+
+6. Energy-Efficient Behavior Monitoring Using Low-Power Edge AI with Optimized RNNs
+Introduction
+
+Livestock behavior monitoring is essential for ensuring animal welfare and detecting issues like illness, stress, or abnormal activity. Traditional monitoring systems rely on energy-intensive and costly solutions, which are impractical for large-scale use in remote areas. Recent advancements in lightweight recurrent neural networks (RNNs) and edge AI present a promising path for addressing these challenges. Building on the TinyCowNet framework, this project focuses on deploying memory-optimized RNNs on low-power edge devices, enabling real-time behavior monitoring with minimal energy consumption and cost.
+
+Motivation
+
+Agriculture faces increasing demands for scalable, cost-efficient solutions to monitor livestock health and productivity. Current approaches often require frequent maintenance, high energy input, and infrastructure investment, making them unsustainable for widespread deployment. A solution leveraging optimized RNNs and edge computing can deliver actionable insights while reducing power consumption, ensuring scalability, and maintaining accuracy.
+
+Objectives
+
+Optimized Model Development: Design a recurrent neural network that balances memory efficiency with high accuracy for livestock behavior classification.
+Hardware Implementation: Deploy the model on low-power edge devices such as FPGAs and microcontrollers, utilizing quantization techniques for efficient operation.
+Field Validation: Evaluate the system's performance in real-world scenarios by measuring its energy usage, accuracy, and feasibility in monitoring grazing, walking, and resting behaviors.
+Expected Outcomes
+
+The project aims to develop an energy-efficient system capable of livestock behavior monitoring with minimal infrastructure. The expected outcomes include:
+
+A low-power, scalable solution using edge AI for real-time classification.
+Field validation demonstrating reduced energy consumption while maintaining high accuracy.
+A practical, cost-effective alternative to cloud-based systems for livestock management in remote areas.
+ 
