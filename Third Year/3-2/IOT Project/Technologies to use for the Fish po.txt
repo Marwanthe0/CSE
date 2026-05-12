@@ -1,0 +1,16 @@
+CFG -> LL(1)
+1. Left to right derication
+2. 1 look ahead symbol
+
+S-> aA
+A-> s|b
+
+Chomsky Normal Form(CNF)
+
+1. At Right side at most 2 non terminals are allowed: S->AB
+2. At RIght side, single terminal is allowed: S->a
+3. At Right side, single non terminal is not allowed: S->A x [unit production Rule is not allowed]
+4. Non terminal and terminal mixing not allowed: S->aA x
+5. Only starting symbol can have null production rule, if needed: S->e ok But A->e x
+6. For LL(1) Left recursion is not allowed: A-> aA ok But A->Aa x
+7. 
