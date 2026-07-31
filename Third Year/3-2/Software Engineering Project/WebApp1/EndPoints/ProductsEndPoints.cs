@@ -1,34 +1,52 @@
 using DTOs;
+using Microsoft.EntityFrameworkCore;
+using WebApp1.Data;
+using WebApp1.Models;
 
 namespace WebApp1.EndPoints;
 
 public static class ProductsEndPoints
 {
     const string GetProductById = "GetProduct";
-    private static readonly List<ProductDTO> products =
-    [
-        new(1, "ball", "Sports", new DateOnly(2021, 12, 23)),
-        new(2, "SmartPhone", "Electronics", new DateOnly(2023, 10, 13)),
-    ];
 
     public static void MapProductsEndPoints(this WebApplication app)
     {
         var ProductGroup = app.MapGroup("/product");
         //GET /product
-        ProductGroup.MapGet("/", () => products);
+        ProductGroup.MapGet(
+            "/",
+            async (WebApp1Context dbContext) =>
+            {
+                return await dbContext
+                    .Products.Include(product => product.Category)
+                    .Select(product => new ProductSummaryDTO(
+                        product.Id,
+                        product.Name,
+                        product.Category!.Name,
+                        product.ReleaseDate
+                    ))
+                    .AsTracking()
+                    .ToListAsync();
+            }
+        );
 
         //GET /product/id
         ProductGroup
             .MapGet(
                 "/{id}",
-                (int id) =>
+                async (int id, WebApp1Context dbContext) =>
                 {
-                    var product = products.Find(product => product.Id == id);
-                    if (product == null)
-                    {
-                        return Results.NotFound("Product with this id doesn't exist");
-                    }
-                    return Results.Ok(product);
+                    var product = await dbContext.Products.FindAsync(id);
+                    return product == null
+                        ? Results.NotFound("Product with this id doesn't exist.")
+                        : Results.Ok(
+                            new ProductdetailsDTO(
+                                product.Id,
+                                product.Name,
+                                product.CategoryId,
+                                product.ReleaseDate
+                            )
+                        );
                 }
             )
             .WithName(GetProductById);
@@ -36,38 +54,45 @@ public static class ProductsEndPoints
         //POST /product
         ProductGroup.MapPost(
             "/",
-            (CreateProductDTO newproduct) =>
+            async (CreateProductDTO newproduct, WebApp1Context dbContext) =>
             {
-                ProductDTO product = new(
-                    products.Count + 1,
-                    newproduct.Name,
-                    newproduct.Category,
-                    newproduct.ReleaseDate
+                Product product = new()
+                {
+                    Name = newproduct.Name,
+                    CategoryId = newproduct.CategoryId,
+                    ReleaseDate = newproduct.ReleaseDate,
+                };
+                dbContext.Products.Add(product);
+                await dbContext.SaveChangesAsync();
+                ProductdetailsDTO productDTO = new(
+                    product.Id,
+                    product.Name,
+                    product.CategoryId,
+                    product.ReleaseDate
                 );
-
-                products.Add(product);
-
-                return Results.CreatedAtRoute(GetProductById, new { id = product.Id }, product);
+                return Results.CreatedAtRoute(
+                    GetProductById,
+                    new { id = productDTO.Id },
+                    productDTO
+                );
             }
         );
 
         //PUT /product/id
         ProductGroup.MapPut(
             "/{id}",
-            (int id, UpdateProductDTO UpdatedProduct) =>
+            async (int id, UpdateProductDTO givenProduct, WebApp1Context dbContext) =>
             {
-                var index = products.FindIndex(product => product.Id == id);
-
-                if (index == -1)
+                var product = await dbContext.Products.FindAsync(id);
+                if (product == null)
                 {
-                    return Results.NotFound("Product with this id doesn't exist.");
+                    return Results.NotFound("Product with this id doesn't exist");
                 }
-                products[index] = new ProductDTO(
-                    id,
-                    UpdatedProduct.Name,
-                    UpdatedProduct.Category,
-                    UpdatedProduct.ReleaseDate
-                );
+                product.Name = givenProduct.Name;
+                product.CategoryId = givenProduct.CategoryId;
+                product.ReleaseDate = givenProduct.ReleaseDate;
+                await dbContext.SaveChangesAsync();
+
                 return Results.NoContent();
             }
         );
@@ -75,10 +100,16 @@ public static class ProductsEndPoints
         //DELETE /product/id
         ProductGroup.MapDelete(
             "/{id}",
-            (int id) =>
+            async (int id, WebApp1Context dbContext) =>
             {
-                products.RemoveAll(product => product.Id == id);
-
+                // var product = await dbContext.Products.FindAsync(id);
+                // if (product is null)
+                // {
+                //     return Results.NotFound("Product With this Id Doesn't Exist");
+                // }
+                // dbContext.Products.Remove(product);
+                // await dbContext.SaveChangesAsync();
+                await dbContext.Products.Where(product => product.Id == id).ExecuteDeleteAsync();
                 return Results.NoContent();
             }
         );
