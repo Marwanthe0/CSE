@@ -1,6 +1,7 @@
 name: Mirror HotelManagement
 
 on:
+  workflow-dispatch:
   push:
     branches:
       - main
