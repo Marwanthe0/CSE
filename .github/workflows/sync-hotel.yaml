@@ -6,8 +6,11 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - "Third Year/3-2/Software Engineering Project/HotelManagement/**"
+    paths:
+      - "Third Year/3-2/Software Engineering Project/HotelManagement/**"
+
+permissions:
+  contents: write
 
 jobs:
   sync:
@@ -17,33 +20,36 @@ jobs:
       - name: Checkout CSE Repository
         uses: actions/checkout@v4
 
-      - name: Clone Hotel Repository
+      - name: Clone HotelManagement Repository
         run: |
           git clone https://x-access-token:${{ secrets.HOTEL_REPO_TOKEN }}@github.com/Marwanthe0/HotelManagement.git hotel
 
-      - name: Sync Files
+      - name: Copy Project Files
         run: |
-          sudo apt-get update
-          sudo apt-get install -y rsync
+          rm -rf hotel/*
+          rm -rf hotel/.github
 
-          rsync -av --delete \
-            "Third Year/3-2/Software Engineering Project/HotelManagement/" \
-            hotel/
+          rsync -a --delete \
+          "Third Year/3-2/Software Engineering Project/HotelManagement/" \
+          hotel/
 
       - name: Commit & Push
+        working-directory: hotel
         run: |
-          cd hotel
-
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add .
+          git add -A
 
           if git diff --cached --quiet; then
-            echo "No changes"
+            echo "No changes detected."
             exit 0
           fi
 
-          git commit -m "Auto sync from CSE repository"
+          git commit -m "Auto sync from CSE"
 
-          git push origin main
+          git remote remove origin
+
+          git remote add origin https://x-access-token:${{ secrets.HOTEL_REPO_TOKEN }}@github.com/Marwanthe0/HotelManagement.git
+
+          git push -u origin HEAD:main
