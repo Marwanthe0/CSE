@@ -28,7 +28,16 @@ jobs:
           git filter-repo \
             --path "Third Year/3-2/Software Engineering Project/HotelManagement/" \
             --path-rename "Third Year/3-2/Software Engineering Project/HotelManagement/:"
+      - name: Verify secret
+        env:
+            TOKEN: ${{ secrets.HOTEL_REPO_TOKEN }}
+        run: |
+            if [ -z "$TOKEN" ]; then
+              echo "TOKEN IS EMPTY"
+              exit 1
+            fi
 
+            echo "Token length: ${#TOKEN}"
       - name: Push mirror
         env:
           TOKEN: ${{ secrets.HOTEL_REPO_TOKEN }}
