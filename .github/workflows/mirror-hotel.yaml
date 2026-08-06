@@ -28,7 +28,7 @@ jobs:
           git filter-repo \
             --path "Third Year/3-2/Software Engineering Project/HotelManagement/" \
             --path-rename "Third Year/3-2/Software Engineering Project/HotelManagement/:"
-      - name: Verify secret
+      - name: Verify token
         env:
             TOKEN: ${{ secrets.HOTEL_REPO_TOKEN }}
         run: |
