@@ -1,0 +1,47 @@
+name: Sync HotelManagement Repository
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "Third Year/3-2/Software Engineering Project/HotelManagement/**"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout CSE Repository
+        uses: actions/checkout@v4
+
+      - name: Clone Hotel Repository
+        run: |
+          git clone https://x-access-token:${{ secrets.HOTEL_REPO_TOKEN }}@github.com/Marwanthe0/HotelManagement.git hotel
+
+      - name: Sync Files
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rsync
+
+          rsync -av --delete \
+            "Third Year/3-2/Software Engineering Project/HotelManagement/" \
+            hotel/
+
+      - name: Commit & Push
+        run: |
+          cd hotel
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add .
+
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+
+          git commit -m "Auto sync from CSE repository"
+
+          git push origin main
