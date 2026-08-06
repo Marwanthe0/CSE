@@ -34,13 +34,24 @@ public class RoomService : IRoomService
             PricePerNight = dto.PricePerNight,
             IsAvailable = dto.IsAvailable
         };
-        
+
         await _roomRepository.AddAsync(room);
     }
 
 
-    public async Task UpdateRoomAsync(Room room)
+    public async Task UpdateRoomAsync(int id,UpdateRoomDto dto)
     {
+        var room = await _roomRepository.GetByIdAsync(id);
+        if (room == null)
+        {
+            return;
+        }
+        
+        room.RoomNumber = dto.RoomNumber;
+        room.RoomType = dto.RoomType;
+        room.PricePerNight = dto.PricePerNight;
+        room.IsAvailable = dto.IsAvailable;
+        
         await _roomRepository.UpdateAsync(room);
     }
 

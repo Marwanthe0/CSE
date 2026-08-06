@@ -1,3 +1,4 @@
+using HotelManagement.Application.DTOs.Rooms;
 using HotelManagement.Application.Interfaces;
 using HotelManagement.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -40,22 +41,18 @@ public class RoomsController : ControllerBase
 
     //POST: api/rooms
     [HttpPost]
-    public async Task<IActionResult> CreateRoom(Room room)
+    public async Task<IActionResult> CreateRoom(CreateRoomDTO dto)
     {
-        await _roomService.AddRoomAsync(room);
-        return Ok(room);
+        await _roomService.AddRoomAsync(dto);
+        return Ok(dto);
     }
 
-    //PUT: api/rooms/{id}
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateRoom(int id, Room room)
+    //PUT: api/rooms/{id}[HttpPut("{id}")]
+    public async Task<IActionResult> UpdateRoom(int id, UpdateRoomDto dto)
     {
-        if (id != room.Id)
-        {
-            return BadRequest();
-        }
-        await _roomService.UpdateRoomAsync(room);
-        return Ok(room);
+        await _roomService.UpdateRoomAsync(id, dto);
+    
+        return Ok(dto);
     }
 
     //DELETE: api/room/{id}

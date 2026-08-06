@@ -11,7 +11,7 @@ public interface IRoomService
 
     Task AddRoomAsync(CreateRoomDTO room);
 
-    Task UpdateRoomAsync(Room room);
+    Task UpdateRoomAsync(int id,UpdateRoomDto room);
 
     Task DeleteRoomAsync(int id);
 }
