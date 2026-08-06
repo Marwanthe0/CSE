@@ -1,0 +1,42 @@
+name: Mirror HotelManagement
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout monorepo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install git-filter-repo
+        run: |
+          python -m pip install git-filter-repo
+
+      - name: Rewrite history to HotelManagement folder
+        run: |
+          git filter-repo \
+            --path "Third Year/3-2/Software Engineering Project/HotelManagement/" \
+            --path-rename "Third Year/3-2/Software Engineering Project/HotelManagement/:"
+
+      - name: Push mirror
+        env:
+          TOKEN: ${{ secrets.HOTEL_REPO_TOKEN }}
+        run: |
+          git remote remove origin
+
+          git remote add target \
+          https://x-access-token:${TOKEN}@github.com/Marwanthe0/HotelManagement
+
+          git push target --force --all
+
+          git push target --force --tags
