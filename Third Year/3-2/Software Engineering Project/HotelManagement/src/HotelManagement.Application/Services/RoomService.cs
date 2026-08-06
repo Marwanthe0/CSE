@@ -1,5 +1,7 @@
+using HotelManagement.Application.DTOs.Rooms;
 using HotelManagement.Application.Interfaces;
 using HotelManagement.Domain.Entities;
+using HotelManagement.Application.DTOs.Rooms;
 
 namespace HotelManagement.Application.Services;
 
@@ -23,8 +25,16 @@ public class RoomService : IRoomService
     }
 
 
-    public async Task AddRoomAsync(Room room)
+    public async Task AddRoomAsync(CreateRoomDTO dto)
     {
+        var room = new Room
+        {
+            RoomNumber = dto.RoomNumber,
+            RoomType = dto.RoomType,
+            PricePerNight = dto.PricePerNight,
+            IsAvailable = dto.IsAvailable
+        };
+        
         await _roomRepository.AddAsync(room);
     }
 

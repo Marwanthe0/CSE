@@ -1,3 +1,4 @@
+using HotelManagement.Application.DTOs.Rooms;
 using HotelManagement.Domain.Entities;
 
 namespace HotelManagement.Application.Interfaces;
@@ -8,7 +9,7 @@ public interface IRoomService
 
     Task<Room?> GetRoomByIdAsync(int id);
 
-    Task AddRoomAsync(Room room);
+    Task AddRoomAsync(CreateRoomDTO room);
 
     Task UpdateRoomAsync(Room room);
 
