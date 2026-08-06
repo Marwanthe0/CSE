@@ -1,6 +1,8 @@
 name: Sync HotelManagement Repository
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - main
