@@ -4,6 +4,7 @@ namespace HotelManagement.Application.Interfaces;
 
 public interface IRoomRepository
 {
+    //Enumerable interface for getting list of rooms
     Task<IEnumerable<Room>> GetAllAsync();
     Task<Room?> GetByIdAsync(int id);
     Task AddAsync(Room room);
