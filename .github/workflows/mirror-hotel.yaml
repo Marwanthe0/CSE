@@ -33,11 +33,5 @@ jobs:
         env:
           TOKEN: ${{ secrets.HOTEL_REPO_TOKEN }}
         run: |
-          git remote remove origin
-
-          git remote add target \
-          https://x-access-token:${TOKEN}@github.com/Marwanthe0/HotelManagement.git
-
-          git push target --force --all
-
-          git push target --force --tags
+            git remote add target https://x-access-token:${TOKEN}@github.com/Marwanthe0/HotelManagement.git
+            git push --force target HEAD:main
