@@ -48,6 +48,7 @@ public class RoomsController : ControllerBase
     }
 
     //PUT: api/rooms/{id}[HttpPut("{id}")]
+    [HttpPut("{id}")]
     public async Task<IActionResult> UpdateRoom(int id, UpdateRoomDto dto)
     {
         await _roomService.UpdateRoomAsync(id, dto);

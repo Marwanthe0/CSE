@@ -1,0 +1,221 @@
+# ==============================================================================
+# 1. BASE CONFIGURATION (C# / ASP.NET Core 10 / IDEs / General)
+# ==============================================================================
+# Build output
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# NuGet packages
+*.nupkg
+packages/
+
+# Entity Framework migrations (keep migrations usually)
+# Do NOT ignore migrations for team projects
+
+# Database files
+*.mdf
+*.ldf
+*.sqlite
+*.sqlite3
+*.db
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Secrets
+appsettings.*.json
+!appsettings.json
+secrets.json
+
+# Test results
+TestResults/
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# Publish output
+publish/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Backup files
+*.bak
+
+# ==============================================================================
+# 2. C++ & COMPETITIVE PROGRAMMING
+# ==============================================================================
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic/Static libraries
+*.so
+*.dylib
+*.dll
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i
+
+# Debug / Profiling / Coverage
+*.dSYM/
+*.pdb
+*.idb
+*.gcno
+*.gcda
+*.gcov
+gmon.out
+
+# C++ Build folders (CMake, Make, etc.)
+build/
+out/
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Makefile.cmake
+cmake_install.cmake
+
+# Common competitive programming I/O text files 
+# (Uncomment below if you don't want to push custom text cases to GitHub)
+# input.txt
+# output.txt
+# error.txt
+
+# ==============================================================================
+# 3. PYTHON & JUPYTER NOTEBOOKS
+# ==============================================================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook
+.ipynb_checkpoints
+profile_default/
+ipython_config.py
+
+# Virtual Environments (venv, conda, uv, etc.)
+venv/
+.venv/
+env/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# Distribution / packaging
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+.pytest_cache/
+pytestdebug.log
+
+# Linters and Type Checkers
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+dmypy.json
+
+# ==============================================================================
+# 4. AI / MACHINE LEARNING / DATA SCIENCE
+# ==============================================================================
+# Note: Small datasets (like small .csv files for study) are intentionally NOT 
+# ignored here so you can push them. 
+
+# Large dataset formats (GitHub has a 100MB file limit)
+*.dat
+*.tfrecord
+*.parquet
+
+# Saved Models and Weights (Too large for standard Git)
+*.h5
+*.hdf5
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.pb
+*.keras
+
+# Training Logs (TensorBoard, Weights & Biases)
+runs/
+tb_logs/
+tensorboard/
+wandb/
+mlruns/
+
+# ==============================================================================
+# 5. OS & STUDY MATERIALS SPECIFIC
+# ==============================================================================
+# Note: *.pdf is actively allowed for your study materials.
+
+
+# Windows (expanded)
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
