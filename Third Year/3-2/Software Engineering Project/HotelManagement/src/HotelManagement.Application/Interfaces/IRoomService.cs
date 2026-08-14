@@ -5,9 +5,9 @@ namespace HotelManagement.Application.Interfaces;
 
 public interface IRoomService
 {
-    Task<IEnumerable<Room>> GetAllRoomsAsync();
+    Task<IEnumerable<RoomResponseDto>> GetAllRoomsAsync();
 
-    Task<Room?> GetRoomByIdAsync(int id);
+    Task<RoomResponseDto?> GetRoomByIdAsync(int id);
 
     Task AddRoomAsync(CreateRoomDTO room);
 

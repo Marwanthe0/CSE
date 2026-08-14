@@ -4,6 +4,7 @@ using HotelManagement.Application.Interfaces;
 using HotelManagement.Application.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using HotelManagement.API.Exceptions;
 
 
 
@@ -16,6 +17,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Exception Handling services
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 //Connecting Sql Server from connectionstring
 builder.Services.AddDbContext<HotelDbContext>(options =>
     options.UseSqlServer(
@@ -27,6 +32,7 @@ builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 
 var app = builder.Build();
 
+app.UseExceptionHandler();
 
 //Lines for Swagger Ui
 if (app.Environment.IsDevelopment())

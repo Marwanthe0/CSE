@@ -1,16 +1,14 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace HotelManagement.Application.DTOs.Rooms;
 
-public class UpdateRoomDto
+public class RoomResponseDto
 {
-    [Required]
-    [StringLength(20)]
+    public int Id { get; set; }
+
     public string RoomNumber { get; set; } = string.Empty;
-    [Required]
-    [StringLength(20)]
+
     public string RoomType { get; set; } = string.Empty;
-    [Range(0.01,1000000)]
+
     public decimal PricePerNight { get; set; }
+
     public bool IsAvailable { get; set; }
 }

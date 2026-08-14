@@ -25,6 +25,12 @@ public class RoomRepository: IRoomRepository
     {
         return await _context.Rooms.FirstOrDefaultAsync(r => r.Id == id);
     }
+    public async Task<bool> ExistsByRoomNumberAsync(string roomNumber,int?excludeRoomId = null)
+    {
+    return await _context.Rooms
+        .AnyAsync(r => r.RoomNumber == roomNumber && 
+        (!excludeRoomId.HasValue || r.Id != excludeRoomId.Value));
+    }
 
     //POST 
     public async Task AddAsync(Room room)

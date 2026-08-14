@@ -14,19 +14,41 @@ public class RoomService : IRoomService
         _roomRepository = roomRepository;
     }
 
-    public async Task<IEnumerable<Room>> GetAllRoomsAsync()
+    public async Task<IEnumerable<RoomResponseDto>> GetAllRoomsAsync()
     {
-        return await _roomRepository.GetAllAsync();
+        var rooms = await _roomRepository.GetAllAsync();
+        return rooms.Select(room => new RoomResponseDto
+        {
+            Id = room.Id,
+            RoomNumber = room.RoomNumber,
+            RoomType = room.RoomType,
+            PricePerNight = room.PricePerNight,
+            IsAvailable = room.IsAvailable
+        });
     }
 
-    public async Task<Room?> GetRoomByIdAsync(int id)
+    public async Task<RoomResponseDto?> GetRoomByIdAsync(int id)
     {
-        return await _roomRepository.GetByIdAsync(id);
+        var room = await _roomRepository.GetByIdAsync(id);
+        if (room == null) return null;
+        return new RoomResponseDto
+        {
+            Id = room.Id,
+            RoomNumber = room.RoomNumber,
+            RoomType = room.RoomType,
+            PricePerNight = room.PricePerNight,
+            IsAvailable = room.IsAvailable
+        };
     }
 
 
     public async Task AddRoomAsync(CreateRoomDTO dto)
     {
+        var exists = await _roomRepository.ExistsByRoomNumberAsync(dto.RoomNumber);
+        if (exists)
+        {
+            throw new InvalidOperationException($"Room Number {dto.RoomNumber} already exists.");
+        }
         var room = new Room
         {
             RoomNumber = dto.RoomNumber,
@@ -41,6 +63,14 @@ public class RoomService : IRoomService
 
     public async Task UpdateRoomAsync(int id,UpdateRoomDto dto)
     {
+        var exists = await _roomRepository
+        .ExistsByRoomNumberAsync(dto.RoomNumber, id);
+
+        if (exists)
+        {
+            throw new InvalidOperationException(
+                $"Room number {dto.RoomNumber} already exists.");
+        }
         var room = await _roomRepository.GetByIdAsync(id);
         if (room == null)
         {
