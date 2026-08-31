@@ -1,9 +1,11 @@
 using HotelManagement.Application.DTOs.Bookings;
 using HotelManagement.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelManagement.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class BookingsController : ControllerBase
@@ -16,10 +18,12 @@ public class BookingsController : ControllerBase
     }
 
     // GET /api/bookings
+    // GET /api/bookings?status=Confirmed
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<BookingResponseDTO>>> GetAll()
+    public async Task<ActionResult<IEnumerable<BookingResponseDTO>>> GetAll(
+        [FromQuery] string? status)
     {
-        var bookings = await _bookingService.GetAllAsync();
+        var bookings = await _bookingService.GetAllAsync(status);
         return Ok(bookings);
     }
 
@@ -54,16 +58,6 @@ public class BookingsController : ControllerBase
         return Ok(booking);
     }
 
-    //PATCH /api/bookings/{id}/confirm
-    [HttpPatch("{id:int}/confirm")]
-    public async Task<ActionResult<BookingResponseDTO>> Confirm(int id)
-    {
-        var booking = await _bookingService.ConfirmAsync(id);
-        if (booking is null)
-            return NotFound();
-        return Ok(booking);
-    }
-
     //PATCH /api/bookings/{id}/cancel
     [HttpPatch("{id:int}/cancel")]
     public async Task<ActionResult<BookingResponseDTO>> Cancel(int id)
@@ -86,7 +80,7 @@ public class BookingsController : ControllerBase
 
     //PATCH /api/bookings/{id}/check-out
     [HttpPatch("{id:int}/check-out")]
-    public async Task<ActionResult<BookingResponseDTO>> CheckOUT(int id)
+    public async Task<ActionResult<BookingResponseDTO>> CheckOut(int id)
     {
         var booking = await _bookingService.CheckOutAsync(id);
         if (booking is null)
