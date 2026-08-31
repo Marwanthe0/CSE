@@ -1,0 +1,103 @@
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  line-height: 1;
+}
+
+.status-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Booking statuses */
+.status-badge--pending {
+  background: rgba(196, 146, 58, 0.12);
+  color: var(--status-pending);
+}
+.status-badge--pending::before {
+  background: var(--status-pending);
+}
+
+.status-badge--confirmed {
+  background: rgba(179, 154, 98, 0.12);
+  color: var(--status-confirmed);
+}
+.status-badge--confirmed::before {
+  background: var(--status-confirmed);
+}
+
+.status-badge--checkedin {
+  background: rgba(74, 158, 109, 0.12);
+  color: var(--status-checkedin);
+}
+.status-badge--checkedin::before {
+  background: var(--status-checkedin);
+}
+
+.status-badge--checkedout {
+  background: rgba(107, 103, 102, 0.12);
+  color: var(--status-checkedout);
+}
+.status-badge--checkedout::before {
+  background: var(--status-checkedout);
+}
+
+.status-badge--cancelled {
+  background: rgba(158, 38, 56, 0.12);
+  color: var(--status-cancelled);
+}
+.status-badge--cancelled::before {
+  background: var(--status-cancelled);
+}
+
+/* Payment statuses */
+.status-badge--paid {
+  background: rgba(74, 158, 109, 0.12);
+  color: var(--status-paid);
+}
+.status-badge--paid::before {
+  background: var(--status-paid);
+}
+
+.status-badge--unpaid {
+  background: rgba(158, 38, 56, 0.12);
+  color: var(--status-unpaid);
+}
+.status-badge--unpaid::before {
+  background: var(--status-unpaid);
+}
+
+.status-badge--partiallypaid {
+  background: rgba(196, 146, 58, 0.12);
+  color: var(--status-partial);
+}
+.status-badge--partiallypaid::before {
+  background: var(--status-partial);
+}
+
+/* Room availability */
+.status-badge--available {
+  background: rgba(74, 158, 109, 0.12);
+  color: var(--status-paid);
+}
+.status-badge--available::before {
+  background: var(--status-paid);
+}
+
+.status-badge--maintenance {
+  background: rgba(196, 146, 58, 0.12);
+  color: var(--warning);
+}
+.status-badge--maintenance::before {
+  background: var(--warning);
+}
