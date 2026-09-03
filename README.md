@@ -1,346 +1,177 @@
-# BSc in Computer Science & Engineering (4-Year Course)
+# CSE Undergraduate Coursework and Academic Archive
 
-A comprehensive repository containing all academic materials, study resources, coursework, projects, and documentation for a 4-year Bachelor of Science degree in Computer Science & Engineering.
+A structured repository containing academic coursework, lab implementations, semester projects, and study materials from my Bachelor of Science in Computer Science and Engineering (CSE).
 
-## 📚 Repository Overview
-
-This repository serves as a centralized hub for organizing and preserving all learning materials, assignments, lab work, projects, and study notes throughout the entire CSE degree program. It includes lecture slides, PDFs, notes, code implementations, projects, and other resources organized by academic year and semester.
-
-### Key Features:
-- **Organized by Academic Year**: Structured folders for Year 1, 2, 3, and 4
-- **Semester-wise Organization**: Each year is divided into semesters (2_1, 2_2, etc.)
-- **Course-specific Materials**: Dedicated folders for each course with subdivisions for lectures, labs, and assignments
-- **Multiple File Types**: Jupyter notebooks, C++/Java source code, PDFs, documentation, and project reports
-- **Project Portfolio**: Complete projects with source code, documentation, and lab reports
-- **Curriculum Reference**: Official BSc CSE curriculum document
+The primary purpose of this repository is personal version control, reference, and tracking academic progression from foundational mathematics and programming up to advanced systems and software engineering.
 
 ---
 
-## 📂 Directory Structure
+## Repository Structure
 
 ```
 CSE/
-├── First Year/              # Year 1 - Foundational Concepts
-│   ├── 1_1/                # First Semester
-│   │   ├── Course folders (with notes, assignments, labs, projects)
-│   │   └── Study materials
-│   └── 1_2/                # Second Semester
+├── First Year/
+│   ├── 1-1/                          # Discrete Math, Calculus, Basic EEE, Chemistry, Bangladesh Studies
+│   └── 1-2/                          # Data Structures & Algorithms, Calculus, DLD, Physics, Engineering Drawing
 │
-├── Second Year/            # Year 2 - Core CSE Concepts
-│   ├── 2_1/               # Third Semester
-│   │   ├── Algorithm/      # Algorithm Design & Analysis
-│   │   │   ├── Lab/       # Lab assignments (C++ implementations)
-│   │   │   └── Lectures/  # Lecture notes and slides
-│   │   ├── Object Oriented Programming/
-│   │   │   ├── Lab/       # Java implementations (ATM system, inheritance, polymorphism)
-│   │   │   └── OOP/       # Object-oriented concepts
-│   │   └── [Other courses]
-│   │
-│   └── 2_2/               # Fourth Semester
-│       ├── Database Management System/
-│       │   ├── Project/   # Complete database project with lab reports
-│       │   ├── Lab/       # Database lab work
-│       │   └── Theory/    # DBMS concepts and documentation
-│       ├── Software Development Project Lab/
-│       │   └── Payroll system/ # Employee payroll management system
-│       └── [Other courses]
+├── Second Year/
+│   ├── 2_1/                          # Algorithms, OOP (Java), Computer Architecture, Numerical Analysis
+│   └── 2_2/                          # DBMS, Software Dev Lab, Data Comm & Networking, Linear Algebra, Statistics
 │
-├── Third Year/            # Year 3 - Advanced Topics
-│   ├── 3_1/              # Fifth Semester
-│   │   ├── Microprocessor/
-│   │   │   ├── Lab Final/  # 8086 Assembly language programs (factorial.asm)
-│   │   │   ├── 8086.txt   # 8086 Microprocessor notes and architecture
-│   │   │   └── Theory/    # Microprocessor concepts
-│   │   ├── Operating System/
-│   │   │   ├── Lab_03/    # Scheduling algorithms (SJF, etc.)
-│   │   │   └── Concepts/  # OS theory and notes
-│   │   ├── Software Engineering/
-│   │   │   ├── LAB_REPORT.md  # University Payroll Management System (FastAPI + Streamlit)
-│   │   │   └── Documentation
-│   │   └── [Other courses]
-│   │
-│   └── 3_2/              # Sixth Semester
-│       ├── Simulation/
-│       │   ├── monte_carlo.py  # Monte Carlo simulation with visualization
-│       │   └── Stochastic modeling
-│       ├── Compiler Design/
-│       │   ├── Lab_01/    # Lexical analysis (lex.yy.c)
-│       │   ├── Lab_03/    # Syntax parsing (lexer.l, parser.y, parser.tab.h)
-│       │   └── Theory/    # Compiler concepts
-│       ├── Software Engineering Project/
-│       │   ├── WebApp1/   # C# web application with DTOs and architecture
-│       │   └── Documentation
-│       └── [Other courses]
+├── Third Year/
+│   ├── 3-1/                          # Microprocessor (8086), Operating Systems, Software Engineering, Web Dev Lab
+│   └── 3-2/                          # AI & ML, Compiler Design, Software Engineering Project, Simulation, IoT
 │
-├── Documents/             # General Documentation
-│   ├── Assignments/
-│   ├── Exams/
-│   ├── General Notes/
-│   └── Resources/
+├── Documents/                        # Academic records, certificates, marksheets, and higher study references
+│   ├── Admit Card/
+│   ├── Certificates/
+│   ├── Marksheets/
+│   ├── Semster Fees/
+│   └── University list For Masters.xlsx
 │
-├── Semster Fees/          # Administrative & Financial Documents
-│   └── Fee receipts, payment records
-│
-├── CSE_Curriculum.pdf     # Official BSc CSE 4-Year Curriculum
-├── University list For Masters.xlsx  # Post-graduation university options
-└── hotel/                 # .NET Hotel Management System Project
-    ├── src/
-    │   ├── HotelManagement.API/      # ASP.NET Core API
-    │   ├── HotelManagement.Application/ # Business logic & interfaces
-    │   ├── HotelManagement.Domain/   # Entity models (Room, Booking, Customer)
-    │   └── HotelManagement.Infrastructure/ # Data access & EF Core
-    ├── HotelManagement.slnx         # Solution file
-    └── README/                       # Project documentation
+└── CSE_Curriculum.pdf                # Official department syllabus and course outline
 ```
 
 ---
 
-## 🎓 Course Organization by Year
+## Coursework by Semester
 
-### **First Year (1st & 2nd Semester)**
-Foundational programming, mathematics, and computer science basics
-- Introduction to Programming
-- Discrete Mathematics
-- Web Development Basics
-- Software Fundamentals
-- *[See folders for complete course list]*
+### First Year
 
-### **Second Year (3rd & 4th Semester)**
-Core computer science concepts and software development
-- **Algorithm Design & Analysis**: DFS, graph traversal, cycle detection, activity selection
-- **Object Oriented Programming**: Inheritance, polymorphism, encapsulation (Java)
-- **Database Management Systems**: Database design, SQL, ER diagrams, relational models
-- **Software Development Project Lab**: Payroll system development
-- Data Structures
-- Web Development
-- *[See folders for complete course list]*
+#### Semester 1-1
+- **Discrete Mathematics**: Logic, set theory, relations, combinatorics, and graph theory fundamentals.
+- **Calculus**: Differential calculus, limits, continuity, and basic integration.
+- **Electrical & Electronic Engineering (EEE)**: Basic circuit theory, Ohm's law, Kirchhoff's laws, and network theorems.
+- **Basic Chemistry & Bangladesh Studies**: Allied foundational courses.
+- Course archives include question papers from 2019 to 2022.
 
-### **Third Year (5th & 6th Semester)**
-Advanced topics and specializations
-- **Microprocessor Architecture**: 8086 assembly language, instruction sets, addressing modes
-- **Operating Systems**: Process scheduling (SJF, FCFS), process synchronization
-- **Software Engineering**: Full-stack project development (FastAPI + Streamlit + SQLite)
-- **Compiler Design**: Lexical analysis, syntax parsing using Lex & Yacc
-- **Simulation**: Stochastic modeling, Monte Carlo methods
-- **Advanced Web Development**: ASP.NET Core, C#, Entity Framework
-- *[See folders for complete course list]*
-
-### **Fourth Year (7th & 8th Semester)**
-Specialization, capstone projects, and emerging technologies
-- *[Add when Year 4 materials are added]*
+#### Semester 1-2
+- **Data Structures and Algorithms**: Arrays, linked lists, stacks, queues, recursion, and introductory sorting/searching.
+- **Differential and Integral Calculus**: Multivariable calculus, series, and integration techniques.
+- **Digital Logic Design (DLD)**: Boolean algebra, logic gates, combinational and sequential circuit design, flip-flops, registers.
+- **Physics & Engineering Drawing**: Foundational engineering sciences and CAD/drawing practices.
 
 ---
 
-## 💻 Notable Projects & Implementations
+### Second Year
 
-### **1. University Payroll Management System** (Third Year - Software Engineering)
-- **Location**: `Third Year/3-1/Software Engineering/`
-- **Tech Stack**: FastAPI (Backend), Streamlit (Frontend), SQLite, Python
-- **Architecture**: Three-tier (Presentation → Business Logic → Data Access)
-- **Features**:
-  - Employee management (Faculty, Officers, Staff)
-  - Automated salary calculation
-  - Allowances: HRA (20%), TA (10%), Medical (₹2,000)
-  - Deductions: Tax (5%), PF (3%)
-  - Salary receipts & payroll reports
-  - Data integrity constraints
-- **Patterns Used**: Service, Repository, DTO, Factory patterns
-- **[View Full Report](Third%20Year/3-1/Software%20Engineering/LAB_REPORT.md)**
+#### Semester 2_1
+- **Algorithm Design and Analysis**:
+  - Graph traversal: Depth-First Search (DFS), Breadth-First Search (BFS)
+  - Disjoint Set Union (DSU) and cycle detection
+  - Greedy strategies: Activity Selection Problem
+  - Dynamic programming and recursive problems (Fibonacci, optimization)
+  - C++ lab implementations and problem sets
+- **Object-Oriented Programming (Java)**:
+  - OOP pillars: Encapsulation, inheritance, polymorphism, abstraction
+  - Exception handling, Java collections, and file I/O
+  - Lab implementation: Console-based ATM banking system
+- **Computer Architecture**: Instruction set architecture, CPU datapath, pipelining, and memory hierarchy.
+- **Numerical Analysis & Linear Algebra**: Matrix operations, numerical methods for equation solving and interpolation.
 
-### **2. Hotel Management System** (.NET Project)
-- **Location**: `hotel/`
-- **Tech Stack**: ASP.NET Core, Entity Framework Core, C#, SQL Server
-- **Architecture**: Clean architecture with Domain, Application, and Infrastructure layers
-- **Entities**: Room, Booking, Customer
-- **Features**:
-  - Room management and availability
-  - Booking system
-  - Customer management
-  - RESTful API endpoints
-
-### **3. ATM Machine System** (Second Year - OOP)
-- **Location**: `Second Year/2_1/Object Oriented Programming/Lab/ATM_MACHINE/`
-- **Language**: Java
-- **Demonstrates**: Bank account operations, deposit, withdrawal, transaction history
-
-### **4. Compiler Parser** (Third Year - Compiler Design)
-- **Location**: `Third Year/3-2/Compiler Design/`
-- **Tools**: Lex, Yacc
-- **Components**:
-  - Lexer (lexer.l) - Tokenization
-  - Parser (parser.y) - Syntax tree generation
-  - Regular expression support
-
-### **5. Microprocessor Programs** (Third Year)
-- **Location**: `Third Year/3-1/Microprocessor/`
-- **Language**: 8086 Assembly
-- **Programs**: Factorial calculation, loop operations
-- **Concepts**: Registers, addressing modes, instruction execution
-
-### **6. Algorithm Implementations** (Second Year)
-- **DFS/BFS**: Graph traversal (C++)
-- **DSU (Disjoint Set Union)**: Cycle detection in graphs
-- **Activity Selection**: Greedy algorithm implementation
-- **Fibonacci**: Recursive implementations
-
-### **7. Operating System Simulations** (Third Year)
-- **SJF Scheduling**: Non-preemptive CPU scheduling with wait time calculations
-- **Process Management**: Arrival time, burst time, completion time analysis
-
-### **8. Monte Carlo Simulation** (Third Year)
-- **Location**: `Third Year/3-2/Simulation/monte_carlo.py`
-- **Features**: Stochastic modeling, probability visualization, matplotlib graphics
+#### Semester 2_2
+- **Database Management Systems (DBMS)**:
+  - Relational model, Entity-Relationship (ER) modeling, normalization (1NF through BCNF)
+  - SQL querying, indexing techniques, B+ tree indexing
+  - Semester lab reports and database design project
+- **Software Development Project Lab**:
+  - Multi-tier employee and payroll management system implemented in Java and C++
+  - Class hierarchies for Teachers, Officers, and Staff with salary calculation logic
+- **Data Communications and Networking**: Layered network architectures, signal encoding, data link protocols.
+- **Digital System Design**: Advanced digital circuits, HDL fundamentals, and state machine design.
+- **Probability and Statistics**: Distributions, hypothesis testing, and statistical analysis for computing.
 
 ---
 
-## 📝 File Types & Content
+### Third Year
 
-| File Type | Description | Examples |
-|-----------|-------------|----------|
-| **.cpp / .c** | C/C++ lab implementations | Algorithm labs, OS scheduling, microprocessor programs |
-| **.java** | Java OOP projects | ATM system, inheritance examples, polymorphism demos |
-| **.cs** | C# backend projects | Hotel Management API, DTOs, business logic |
-| **.py** | Python scripts & notebooks | Simulations, data analysis, utilities |
-| **.asm** | 8086 Assembly language | Microprocessor programs |
-| **.l / .y** | Lex/Yacc compiler tools | Lexer and parser definitions |
-| **.md** | Markdown documentation | Lab reports, system documentation |
-| **.pdf** | Lecture slides & documents | Notes, curriculum, reference materials |
-| **.xlsx** | Spreadsheets | University list, schedules, grades |
-| **.drawio** | Diagrams | ER diagrams, architecture diagrams |
-| **.txt** | Text notes | Study notes, concept summaries |
+#### Semester 3-1
+- **Software Engineering**:
+  - System analysis, architectural patterns (Service, Repository, DTO), and UML modeling
+  - Course project: [University Payroll Management System](Third%20Year/3-1/Software%20Engineering/LAB_REPORT.md)
+  - Tech stack: Python, FastAPI backend, Streamlit UI, SQLite
+- **Operating Systems**:
+  - Process scheduling algorithms: Shortest Job First (SJF), First-Come First-Served (FCFS)
+  - Process synchronization, deadlock handling, paging, and page fault handling mechanisms
+  - C/C++ lab implementations and question solutions
+- **Microprocessor and Interfacing**:
+  - Intel 8086 architecture, registers, segment-offset addressing, and interrupt handling
+  - 8086 Assembly programs: Arithmetic routines, factorial calculation, memory array operations
+  - Embedded systems introduction: Modules covering architecture, interfacing, and system design
+- **Web Development Lab**: Frontend and backend fundamentals, client-server communication.
+- **Engineering Ethics**: Professional ethics, intellectual property, and computing code of conduct.
 
----
-
-## 🛠️ Technologies & Languages Used
-
-### Programming Languages
-- **C/C++**: Algorithms, Data Structures, Systems Programming
-- **Java**: Object-Oriented Programming, Design Patterns
-- **Python**: Simulation, Scripts, Data Analysis
-- **C#**: ASP.NET Core, Web Development
-- **8086 Assembly**: Microprocessor & Architecture
-- **SQL**: Database Management
-- **HTML/CSS/JavaScript**: Web Development
-
-### Frameworks & Tools
-- **Backend**: FastAPI, ASP.NET Core, Express.js
-- **Frontend**: Streamlit, React
-- **Database**: SQLite, SQL Server, MySQL
-- **ORM**: Entity Framework Core, SQLAlchemy
-- **Compiler Tools**: Lex, Yacc, Bison
-- **Version Control**: Git
-- **Development**: VS Code, Visual Studio, PyCharm
-
-### Concepts & Topics Covered
-- Data Structures & Algorithms
-- Object-Oriented Programming
-- Database Design & Management
-- Web Application Development
-- Software Engineering Principles
-- Operating Systems
-- Microprocessor Architecture
-- Compiler Design
-- Software Testing
-- System Design
-- Simulation & Modeling
+#### Semester 3-2
+- **Compiler Design**:
+  - Lexical analysis using Flex / Lex (`lexer.l`, `lex.yy.c`)
+  - Syntax analysis and parsing using Bison / Yacc (`parser.y`, grammar definitions)
+  - Tokenization, regular expression evaluation, and parse tree construction
+- **Artificial Intelligence and Machine Learning**:
+  - Search strategies: Uninformed search (BFS, DFS) and informed search (A*, heuristic search)
+  - Constraint Satisfaction Problems (CSPs)
+  - Supervised learning basics: Linear models, Gradient Descent, Artificial Neural Networks (ANN)
+  - Jupyter notebook lab tasks and evaluation reports
+- **Simulation and Modeling**:
+  - Stochastic modeling and probabilistic simulations
+  - Monte Carlo simulation with visualization (`monte_carlo.py`)
+  - Single-server queuing model simulation (`single_server.py`)
+  - Inventory systems simulation
+- **Software Engineering Capstone / Project**:
+  - [Hotel Management System](Third%20Year/3-2/Software%20Engineering/HotelManagement/): Full-stack enterprise application built with ASP.NET Core and Clean Architecture
+  - WebApp1: Minimal API prototype demonstrating DTO patterns and EF Core integration
+- **Internet of Things (IoT)**: Sensor interfacing, microcontroller workflows, and hardware communication.
 
 ---
 
-## 📖 How to Use This Repository
+## Highlighted Projects
 
-1. **Browse by Year**: Navigate to your specific year folder (First Year, Second Year, etc.)
-2. **Find Course Materials**: Look within each year's semester folders
-3. **View Implementations**: Open `.cpp`, `.java`, or `.py` files to study code
-4. **Read Documentation**: Check `.md` files and lab reports for detailed explanations
-5. **Reference Curriculum**: See `CSE_Curriculum.pdf` for course structure
+### 1. Hotel Management System (.NET / Clean Architecture)
+- **Path**: [`Third Year/3-2/Software Engineering/HotelManagement`](Third%20Year/3-2/Software%20Engineering/HotelManagement/)
+- **Stack**: ASP.NET Core, Entity Framework Core, C#, SQL Server, React
+- **Architecture**: Clean Architecture split across distinct layers:
+  - `HotelManagement.Domain`: Core business models (Room, Booking, Customer)
+  - `HotelManagement.Application`: Service contracts, DTOs, and validation logic
+  - `HotelManagement.Infrastructure`: Data persistence, EF Core configurations, and external services
+  - `HotelManagement.API`: RESTful endpoints, middleware, and dependency injection configuration
+- **Capabilities**: Room inventory tracking, booking management, customer records, and status transitions.
 
-### For Study:
-- Review lecture notes and PDFs
-- Study implementations of algorithms and concepts
-- Follow lab reports for practical applications
-- Use projects as references for system design
+### 2. University Payroll Management System
+- **Path**: [`Third Year/3-1/Software Engineering/LAB_REPORT.md`](Third%20Year/3-1/Software%20Engineering/LAB_REPORT.md)
+- **Stack**: Python, FastAPI, Streamlit, SQLite
+- **Architecture**: Three-tier architecture decoupling presentation, service logic, and database operations.
+- **Capabilities**: Automated payroll generation for faculty, administrative officers, and support staff; calculation of house rent allowances, medical benefits, and tax deductions; payslip generation.
 
-### For Projects:
-- Study full-stack project implementations
-- Review architecture patterns used
-- Understand design decisions and trade-offs
-- Check documentation for setup and usage
+### 3. Compiler Lexer and Parser Suite
+- **Path**: [`Third Year/3-2/Compiler Design`](Third%20Year/3-2/Compiler%20Design/)
+- **Stack**: C, Flex, Bison
+- **Capabilities**: Custom token generator and grammar parser handling language constructs, operator precedence, syntax verification, and error detection.
 
----
-
-## 📊 Academic Statistics
-
-- **Total Academic Years**: 4 years (with Year 3 and Year 4 materials included)
-- **Semesters Covered**: Up to 6+ semesters documented
-- **Courses**: 20+ core courses with materials
-- **Projects**: Multiple full-stack projects
-- **Programming Languages**: 6+ languages
-- **Lines of Code**: Thousands of lines across various implementations
-- **Documentation**: Lab reports, README files, inline comments
+### 4. Microprocessor 8086 Assembly Suite
+- **Path**: [`Third Year/3-1/Microprocessor`](Third%20Year/3-1/Microprocessor/)
+- **Stack**: 8086 Assembly, EMU8086
+- **Capabilities**: Assembly subroutines covering register arithmetic, looping constructs, memory addressing modes, and modular subroutines.
 
 ---
 
-## 🎯 Learning Outcomes
+## Primary Technologies and Tooling
 
-Through this repository, the following competencies have been developed:
-
-✅ **Programming Proficiency**: C, C++, Java, Python, C#  
-✅ **Data Structures & Algorithms**: Implementation and optimization  
-✅ **Database Design**: ER modeling, normalization, SQL  
-✅ **Web Development**: Full-stack applications, RESTful APIs  
-✅ **Software Engineering**: Design patterns, architecture, best practices  
-✅ **Operating Systems**: Process scheduling, synchronization  
-✅ **Microprocessors**: Assembly language, hardware fundamentals  
-✅ **Compilers**: Lexical and syntax analysis  
-✅ **Project Management**: Multi-layer architecture, documentation  
+- **Programming Languages**: C, C++, Java, C#, Python, x86 Assembly (8086), SQL
+- **Frameworks & Libraries**: ASP.NET Core, Entity Framework Core, FastAPI, Streamlit, NumPy, Matplotlib
+- **Systems & Compilers**: GCC/G++, Flex, Bison, EMU8086, DOSBox
+- **Databases**: SQLite, SQL Server, MySQL
+- **Developer Tools**: Visual Studio, VS Code, Git
 
 ---
 
-## 📚 Additional Resources
+## Academic Reference Documents
 
-- **Curriculum**: [CSE_Curriculum.pdf](CSE_Curriculum.pdf) - Official 4-year program structure
-- **Higher Studies**: [University list For Masters.xlsx](University%20list%20For%20Masters.xlsx) - Post-graduation options
-- **Lab Reports**: Available in individual course folders with detailed analysis
-
----
-
-## 📝 Notes
-
-- This repository is continually updated with new materials as semesters progress
-- All code follows industry best practices and uses proper naming conventions
-- Projects demonstrate real-world application of theoretical concepts
-- Documentation is comprehensive to facilitate learning and reference
+The [`Documents/`](Documents/) directory stores administrative records, certifications, and reference lists:
+- Academic documents: Transcripts, admit cards, and semester fee records
+- Curriculum: [`CSE_Curriculum.pdf`](CSE_Curriculum.pdf) contains the full 4-year undergraduate syllabus
+- Higher study planning: [`Documents/University list For Masters.xlsx`](Documents/University%20list%20For%20Masters.xlsx)
 
 ---
 
-## 👤 Author
+## Notes on Academic Integrity
 
-**Marwanthe0** - CSE Student  
-*Maintaining comprehensive academic documentation and project portfolio*
-
----
-
-## 📄 License
-
-These materials are personal academic work. If you use any code or content, please provide appropriate attribution.
-
----
-
-## 🔗 Quick Links
-
-- [First Year Materials](First%20Year/)
-- [Second Year Materials](Second%20Year/)
-- [Third Year Materials](Third%20Year/)
-- [Payroll System Documentation](Third%20Year/3-1/Software%20Engineering/LAB_REPORT.md)
-- [Hotel Management Project](hotel/)
-- [Official Curriculum](CSE_Curriculum.pdf)
-
----
-
-**Last Updated**: August 2026  
-**Repository Size**: ~866 MB  
-**Topics**: `cse` `computer-science` `coursework` `jupyter-notebook` `python` `machine-learning` `data-science` `artificial-intelligence` `software-engineering`
-
----
-
-*For questions or suggestions about this repository, please reach out!*
+This repository is maintained as an archive of my undergraduate coursework and personal learning progress. If you are a student taking similar courses, feel free to use these materials for conceptual understanding and study. Please do not directly copy assignment solutions or lab submissions for your own graded coursework.
