@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Compiled binaries
+test
+main
+graphics
+*.o
+*.out
+*.dSYM/
+*.exe
+
+# VS Code temp files
+tempCodeRunnerFile.cpp
