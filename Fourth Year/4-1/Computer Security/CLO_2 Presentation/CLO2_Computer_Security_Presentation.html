@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLO2: Evaluating Security Risks & Managing Information Security - Shafikul Islam Marwan</title>
+  <style>
+    :root {
+      --primary: #1B2A4A;
+      --accent: #2E86AB;
+      --teal: #36B37E;
+      --light-bg: #F0F4F8;
+      --dark-gray: #2D3748;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --danger: #E53E3E;
+      --warning: #DD6B20;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #0A1128;
+      color: var(--dark-gray);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .controls {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background: rgba(255,255,255,0.95);
+      padding: 10px 18px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      z-index: 1000;
+    }
+    .controls button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .controls button:hover { background: #1b6585; transform: translateY(-1px); }
+    .controls span { font-size: 14px; font-weight: bold; color: var(--primary); min-width: 60px; text-align: center; }
+
+    .deck-container {
+      width: 100%;
+      max-width: 1100px;
+      aspect-ratio: 16 / 9;
+      position: relative;
+      margin-top: 50px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      border-radius: 12px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: white;
+      display: none;
+      flex-direction: column;
+      padding: 40px 50px;
+    }
+    .slide.active { display: flex; }
+
+    /* Slide Headers & Footers */
+    .slide-header {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .slide-header h2 { font-size: 26px; color: var(--primary); font-weight: 700; }
+    .slide-header .tag { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+
+    .slide-footer {
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #718096;
+    }
+
+    /* Grid Layouts */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 1; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; flex: 1; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; flex: 1; }
+
+    .card {
+      background: var(--light-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+    }
+    .card h3 { font-size: 16px; color: var(--primary); margin-bottom: 8px; font-weight: 700; }
+    .card p, .card li { font-size: 13px; line-height: 1.5; color: #4A5568; }
+    .card ul { padding-left: 18px; margin-top: 5px; }
+
+    /* Special Titles */
+    .title-slide {
+      background: linear-gradient(135deg, #0B192C 0%, #1E3E62 100%);
+      color: white;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px;
+    }
+    .title-slide h1 { font-size: 38px; color: #FFFFFF; margin-bottom: 15px; font-weight: 800; }
+    .title-slide h3 { font-size: 20px; color: #00ADB5; margin-bottom: 35px; font-weight: 500; }
+    .info-boxes { display: flex; gap: 40px; justify-content: center; width: 100%; max-width: 900px; }
+    .info-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 20px 25px;
+      flex: 1;
+      text-align: left;
+    }
+    .info-card h4 { font-size: 12px; color: #00ADB5; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }
+    .info-card .name { font-size: 18px; font-weight: 700; color: white; margin-bottom: 5px; }
+    .info-card .meta { font-size: 13px; color: #CFD8DC; line-height: 1.5; }
+
+    /* Matrix Table */
+    table.risk-matrix {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 12px;
+      text-align: center;
+    }
+    table.risk-matrix th, table.risk-matrix td {
+      border: 1px solid #CBD5E0;
+      padding: 8px;
+    }
+    table.risk-matrix th { background: var(--primary); color: white; font-weight: 600; }
+    .r-low { background: #C6F6D5; color: #22543D; font-weight: bold; }
+    .r-med { background: #FEFCBF; color: #744210; font-weight: bold; }
+    .r-high { background: #FEEBC8; color: #9C4221; font-weight: bold; }
+    .r-crit { background: #FED7D7; color: #9B2C2C; font-weight: bold; }
+
+    /* Printable format */
+    @media print {
+      body { background: white; padding: 0; }
+      .controls { display: none; }
+      .deck-container { margin: 0; box-shadow: none; border-radius: 0; width: 100%; max-width: 100%; aspect-ratio: auto; }
+      .slide { position: relative; display: flex !important; page-break-after: always; height: 100vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="controls">
+    <button onclick="prevSlide()">❮ Prev</button>
+    <span id="slide-num">1 / 16</span>
+    <button onclick="nextSlide()">Next ❯</button>
+    <button onclick="window.print()" style="background:#2D3748">🖨 Print / PDF</button>
+  </div>
+
+  <div class="deck-container">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide title-slide active">
+      <div style="font-size:14px; font-weight:700; letter-spacing:2px; color:#00ADB5; margin-bottom:12px;">COURSE: COMPUTER SECURITY (CSE 4105) • CLO 2</div>
+      <h1>Information Security Risk Management & Governance Frameworks</h1>
+      <h3>A Systematic Approach to Asset Valuation, Threat Assessment, Controls & ISMS</h3>
+      
+      <div class="info-boxes">
+        <div class="info-card">
+          <h4>Presented By</h4>
+          <div class="name">Shafikul Islam Marwan</div>
+          <div class="meta">
+            Student ID: <strong>220121</strong><br>
+            Registration No: <strong>2201020</strong><br>
+            Department of CSE, JUST
+          </div>
+        </div>
+        <div class="info-card">
+          <h4>Presented To</h4>
+          <div class="name">Dr. Engr. Md. Arif Rahman</div>
+          <div class="meta">
+            Assistant Professor<br>
+            Department of CSE<br>
+            Jashore University of Science and Technology
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Agenda -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Presentation Roadmap</h2>
+        <span class="tag">Overview</span>
+      </div>
+      <div class="grid-4" style="align-content:center;">
+        <div class="card"><div style="font-size:22px; font-weight:bold; color:var(--accent);">01</div><h3>Risk Lifecycle</h3><p>6-phase continuous framework based on ISO 31000.</p></div>
+        <div class="card"><div style="font-size:22px; font-weight:bold; color:var(--accent);">02</div><h3>Asset Management</h3><p>Taxonomy, valuation techniques, ownership & classification.</p></div>
+        <div class="card"><div style="font-size:22px; font-weight:bold; color:var(--accent);">03</div><h3>Threat & Risk Mechanics</h3><p>Risk equation, qualitative matrix & quantitative SLE/ALE.</p></div>
+        <div class="card"><div style="font-size:22px; font-weight:bold; color:var(--accent);">04</div><h3>Treatment Strategies</h3><p>Mitigation, transference, avoidance & formal acceptance.</p></div>
+        <div class="card"><div style="font-size:22px; font-weight:bold; color:var(--accent);">05</div><h3>Controls Taxonomy</h3><p>Preventive, Detective, Corrective & Defense-in-depth.</p></div>
+        <div class="card"><div style="font-size:22px; font-weight:bold; color:var(--accent);">06</div><h3>Governance vs Mgmt</h3><p>Strategic leadership, RACI lines & organizational oversight.</p></div>
+        <div class="card"><div style="font-size:22px; font-weight:bold; color:var(--accent);">07</div><h3>ISMS & ISO 27001</h3><p>Deming PDCA cycle & the 4 consolidated control domains.</p></div>
+        <div class="card"><div style="font-size:22px; font-weight:bold; color:var(--accent);">08</div><h3>Evaluation & Case</h3><p>Audits, pen-tests & university examination system case study.</p></div>
+      </div>
+      <div class="slide-footer">
+        <span>CSE 4105: Computer Security</span>
+        <span>Shafikul Islam Marwan (220121)</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Lifecycle -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>The Risk Management Lifecycle</h2>
+        <span class="tag">Core Process</span>
+      </div>
+      <div style="background:#EBF8FF; border-left:4px solid var(--accent); padding:10px 15px; margin-bottom:15px; font-size:13px; color:#2B6CB0; font-weight:500;">
+        Key Concept: Risk management is an iterative, continuous loop—not a static compliance checkbox. As infrastructure and threat actors evolve, the risk posture must be continually reassessed.
+      </div>
+      <div class="grid-3">
+        <div class="card"><h3>1. Context & Scope</h3><p>Establish organizational objectives, external legal mandates, regulatory compliance rules, and executive risk tolerance boundaries.</p></div>
+        <div class="card"><h3>2. Risk Identification</h3><p>Catalog information assets, profile active threat agents, discover system vulnerabilities, and document current safeguards.</p></div>
+        <div class="card"><h3>3. Risk Analysis</h3><p>Estimate likelihood of occurrence and assess financial and operational impact through qualitative ratings or mathematical models.</p></div>
+        <div class="card"><h3>4. Risk Evaluation</h3><p>Benchmark analyzed risk scores against predetermined risk acceptance criteria to prioritize remediation urgency.</p></div>
+        <div class="card"><h3>5. Risk Treatment</h3><p>Formulate and execute response strategies: Mitigate (Controls), Avoid (Terminate), Transfer (Insure), or Retain (Accept).</p></div>
+        <div class="card"><h3>6. Monitor & Audit</h3><p>Continuously inspect control integrity, track zero-day vulnerabilities, log security telemetry, and communicate to stakeholders.</p></div>
+      </div>
+      <div class="slide-footer">
+        <span>CSE 4105: Computer Security</span>
+        <span>Shafikul Islam Marwan (220121)</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Asset Identification -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Information Asset Identification & Valuation</h2>
+        <span class="tag">Asset Governance</span>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Asset Taxonomy (What We Defend)</h3>
+          <ul>
+            <li><strong>Data & Intellectual Property:</strong> Student transcripts, faculty payroll, research algorithms, source code.</li>
+            <li><strong>Software & Platforms:</strong> Student information systems (SIS), ERP, cloud endpoints, operating systems.</li>
+            <li><strong>Hardware & Network:</strong> Core servers, edge switches, perimeter firewalls, fiber backbones, Wi-Fi APs.</li>
+            <li><strong>Human Capital:</strong> Database administrators, campus security personnel, developers, faculty.</li>
+            <li><strong>Physical Facilities:</strong> University server rooms, cooling systems, generator backups.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Asset Governance Principles</h3>
+          <ul>
+            <li><strong>1. Inventory Discovery:</strong> Automated network probes and Configuration Management Database (CMDB) tracking.</li>
+            <li><strong>2. Explicit Ownership:</strong> Every asset must have a designated senior owner accountable for its protection and access approvals.</li>
+            <li><strong>3. Data Classification:</strong>
+              <div style="display:flex; gap:8px; margin-top:8px;">
+                <span style="background:#C6F6D5; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:bold;">Public</span>
+                <span style="background:#BEE3F8; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:bold;">Internal</span>
+                <span style="background:#FEEBC8; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:bold;">Confidential</span>
+                <span style="background:#FED7D7; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:bold;">Restricted</span>
+              </div>
+            </li>
+            <li style="margin-top:10px;"><strong>4. Dependency Mapping:</strong> Identify downstream cascade risks (e.g., Auth Server downtime halts all exam logins).</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>CSE 4105: Computer Security</span>
+        <span>Shafikul Islam Marwan (220121)</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Risk Mechanics -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Risk Mechanics: Threats, Vulnerabilities & Impacts</h2>
+        <span class="tag">Formulation</span>
+      </div>
+      <div style="text-align:center; background:#1B2A4A; color:white; padding:12px; border-radius:8px; margin-bottom:18px; font-size:18px; font-weight:bold;">
+        Security Risk = Threat Vector × Vulnerability × Asset Impact
+      </div>
+      <div class="grid-3">
+        <div class="card" style="border-top:4px solid #E53E3E;">
+          <h3>Threat Vectors</h3>
+          <ul>
+            <li><strong>Human:</strong> Social engineering, phishing, rogue insiders, credential theft.</li>
+            <li><strong>Technical:</strong> Zero-day exploits, ransomware, botnets, DDoS saturation.</li>
+            <li><strong>Environmental:</strong> Power grid blackouts, water leaks, severe flooding.</li>
+            <li><strong>Supply Chain:</strong> Compromised dependencies, untrusted vendor code.</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:4px solid #DD6B20;">
+          <h3>Vulnerabilities</h3>
+          <ul>
+            <li><strong>Software:</strong> Unpatched libraries, SQL injection, insecure deserialization.</li>
+            <li><strong>Configuration:</strong> Default administrative credentials, exposed SSH/RDP ports.</li>
+            <li><strong>Architectural:</strong> Single points of failure, missing network isolation.</li>
+            <li><strong>Policy:</strong> Absent MFA enforcement, irregular backup verification.</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:4px solid #319795;">
+          <h3>Impact Dimensions</h3>
+          <ul>
+            <li><strong>Confidentiality:</strong> Unauthorized exfiltration of student identities.</li>
+            <li><strong>Integrity:</strong> Malicious tampering of final examination GPA scores.</li>
+            <li><strong>Availability:</strong> Severe portal crash during nationwide admission intake.</li>
+            <li><strong>Legal & Financial:</strong> Statutory penalties, lawsuits, institutional reputational damage.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>CSE 4105: Computer Security</span>
+        <span>Shafikul Islam Marwan (220121)</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Qualitative & Quantitative -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Risk Assessment Methodologies</h2>
+        <span class="tag">Analysis Models</span>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Qualitative Analysis (Matrix)</h3>
+          <p style="margin-bottom:8px;">Fast, subjective evaluation using defined ranking categories.</p>
+          <table class="risk-matrix">
+            <tr><th>Likelihood \ Impact</th><th>Minor (1)</th><th>Moderate (2)</th><th>Severe (3)</th></tr>
+            <tr><th>High (3)</th><td class="r-med">Medium (3)</td><td class="r-high">High (6)</td><td class="r-crit">Critical (9)</td></tr>
+            <tr><th>Medium (2)</th><td class="r-low">Low (2)</td><td class="r-med">Medium (4)</td><td class="r-high">High (6)</td></tr>
+            <tr><th>Low (1)</th><td class="r-low">Low (1)</td><td class="r-low">Low (2)</td><td class="r-med">Medium (3)</td></tr>
+          </table>
+          <p style="margin-top:10px; font-size:11px; color:#718096;">*Scores ≥ 6 require urgent engineering mitigation and executive sign-off.</p>
+        </div>
+        <div class="card">
+          <h3>Quantitative Analysis (Financial ROI)</h3>
+          <div style="background:#EDF2F7; padding:10px; border-radius:6px; margin-bottom:8px; font-size:12px;">
+            <div><strong>SLE = AV × EF</strong> (Single Loss Expectancy)</div>
+            <div><strong>ALE = SLE × ARO</strong> (Annualized Loss Expectancy)</div>
+          </div>
+          <p><strong>Concrete Numerical Example:</strong></p>
+          <ul style="font-size:12px;">
+            <li>Central Database Value (AV) = <strong>1,200,000 BDT</strong></li>
+            <li>Exposure Factor (EF) under Ransomware = <strong>25%</strong></li>
+            <li><strong>SLE</strong> = 1,200,000 × 0.25 = <strong>300,000 BDT</strong></li>
+            <li>Annual Rate of Occurrence (ARO) = <strong>0.2</strong> (Once in 5 years)</li>
+            <li><strong>ALE</strong> = 300,000 × 0.2 = <strong>60,000 BDT / year</strong></li>
+          </ul>
+          <p style="margin-top:6px; font-size:11px; color:#2B6CB0; font-weight:600;">Decision Rule: Any security countermeasure cost must not exceed 60,000 BDT annually.</p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>CSE 4105: Computer Security</span>
+        <span>Shafikul Islam Marwan (220121)</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Treatment Strategies -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Strategic Risk Treatment Options</h2>
+        <span class="tag">Remediation</span>
+      </div>
+      <div class="grid-2">
+        <div class="card" style="border-left:5px solid #2B6CB0;">
+          <h3>1. Risk Mitigation (Reduction)</h3>
+          <p>Applying technical and managerial countermeasures to lower the vulnerability exposure or impact severity.</p>
+          <p style="margin-top:8px; font-style:italic; color:#4A5568;">Example: Enforcing Multi-Factor Authentication (MFA), automated vulnerability patching, and segmented firewalls.</p>
+        </div>
+        <div class="card" style="border-left:5px solid #319795;">
+          <h3>2. Risk Transference (Sharing)</h3>
+          <p>Transferring the potential financial burden to an external insurer or cloud provider under rigorous Service Level Agreements.</p>
+          <p style="margin-top:8px; font-style:italic; color:#4A5568;">Example: Procuring cyber breach insurance; shifting data storage to AWS with uptime indemnification.</p>
+        </div>
+        <div class="card" style="border-left:5px solid #E53E3E;">
+          <h3>3. Risk Avoidance (Termination)</h3>
+          <p>Discontinuing or redesigning the business activity that introduces the hazard when risks exceed strategic tolerance.</p>
+          <p style="margin-top:8px; font-style:italic; color:#4A5568;">Example: Decommissioning legacy FTP servers; disabling unencrypted remote desktop protocols over public internet.</p>
+        </div>
+        <div class="card" style="border-left:5px solid #DD6B20;">
+          <h3>4. Risk Acceptance (Retention)</h3>
+          <p>Formally retaining residual risk when treatment costs exceed asset value and risk falls comfortably within corporate appetite.</p>
+          <p style="margin-top:8px; font-style:italic; color:#4A5568;">Example: Documenting and accepting occasional harmless UI error notifications in non-critical internal apps.</p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>CSE 4105: Computer Security</span>
+        <span>Shafikul Islam Marwan (220121)</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Types of Controls -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Defense-in-Depth: Security Controls Taxonomy</h2>
+        <span class="tag">Protection Layers</span>
+      </div>
+      <div class="card" style="margin-bottom:15px;">
+        <h3 style="color:#2B6CB0;">Functional Taxonomy (Timeline of Intervention)</h3>
+        <div class="grid-3" style="margin-top:10px;">
+          <div>
+            <strong>Preventive Controls</strong>
+            <p style="font-size:12px; margin-top:4px;">Stops breaches before they occur. Examples: MFA, AES-256 data encryption, input validation, role-based access.</p>
+          </div>
+          <div>
+            <strong>Detective Controls</strong>
+            <p style="font-size:12px; margin-top:4px;">Identifies intrusions as they happen. Examples: SIEM logging, Network Intrusion Detection (NIDS), CCTV, anomaly alarms.</p>
+          </div>
+          <div>
+            <strong>Corrective Controls</strong>
+            <p style="font-size:12px; margin-top:4px;">Remediates damage and recovers operations. Examples: Disaster recovery hot-sites, backup restoration, automated patch push.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="color:#2B6CB0;">Mechanism Taxonomy (Nature of Realization)</h3>
+        <div class="grid-3" style="margin-top:10px;">
+          <div>
+            <strong>Technical Controls</strong>
+            <p style="font-size:12px; margin-top:4px;">Firewalls, cryptographic certificates, antimalware agents, automated honeypots.</p>
+          </div>
+          <div>
+            <strong>Administrative Controls</strong>
+            <p style="font-size:12px; margin-top:4px;">Acceptable Use Policies, background checks, mandatory security awareness campaigns.</p>
+          </div>
+          <div>
+            <strong>Physical Controls</strong>
+            <p style="font-size:12px; margin-top:4px;">Biometric turnstiles, reinforced server vaults, fire suppression gases, backup diesel generators.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>CSE 4105: Computer Security</span>
+        <span>Shafikul Islam Marwan (220121)</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: Governance -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Information Security Governance</h2>
+        <span class="tag">Strategic Oversight</span>
+      </div>
+      <div style="background:#F7FAFC; border:1px solid #E2E8F0; padding:12px; border-radius:8px; margin-bottom:15px; font-size:13px;">
+        <strong>Definition:</strong> Security Governance is the framework of strategic leadership, organizational accountability, and oversight through which executive leadership directs and safeguards the organization's information assets.
+      </div>
+      <div class="grid-2">
+        <div class="card" style="border-top:4px solid var(--primary);">
+          <h3>Governance (Board & Executive Leadership)</h3>
+          <ul>
+            <li><strong>Sets Direction:</strong> Aligns security investments with business mission and vision.</li>
+            <li><strong>Approves Risk Appetite:</strong> Formally signs off on accepted risk tolerance levels.</li>
+            <li><strong>Allocates Resources:</strong> Authorizes cyber defense capital expenditure and staffing.</li>
+            <li><strong>Ensures Compliance:</strong> Guarantees fidelity to ISO standards, GDPR, and privacy laws.</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--accent);">
+          <h3>Management (Security Operations & IT)</h3>
+          <ul>
+            <li><strong>Executes Strategy:</strong> Deploys technical configurations, firewalls, and IAM policies.</li>
+            <li><strong>Maintains Daily Controls:</strong> Performs security monitoring, patching, and backups.</li>
+            <li><strong>Incident Handling:</strong> Runs CSIRT incident response playbooks during cyberattacks.</li>
+            <li><strong>Performance Reporting:</strong> Supplies MTTD, MTTR, and patch compliance metrics to executives.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>CSE 4105: Computer Security</span>
+        <span>Shafikul Islam Marwan (220121)</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: ISMS & ISO 27001 -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>ISMS & The Deming PDCA Cycle (ISO/IEC 27001)</h2>
+        <span class="tag">Management Systems</span>
+      </div>
+      <p style="font-size:13px; color:#4A5568; margin-bottom:15px;">
+        An <strong>Information Security Management System (ISMS)</strong> provides a repeatable blueprint for governing organizational risk. The Deming PDCA cycle ensures continual security maturity:
+      </p>
+      <div class="grid-4">
+        <div class="card" style="background:#EBF8FF; border-color:#BEE3F8;">
+          <h3 style="color:#2B6CB0;">PLAN</h3>
+          <p><strong>Context & Risk:</strong></p>
+          <ul style="font-size:12px;">
+            <li>Define ISMS boundaries</li>
+            <li>Identify threats and assets</li>
+            <li>Select treatment controls</li>
+            <li>Draft Statement of Applicability</li>
+          </ul>
+        </div>
+        <div class="card" style="background:#F0FFF4; border-color:#C6F6D5;">
+          <h3 style="color:#2F855A;">DO</h3>
+          <p><strong>Implementation:</strong></p>
+          <ul style="font-size:12px;">
+            <li>Deploy chosen controls</li>
+            <li>Allocate security budgets</li>
+            <li>Train administrative staff</li>
+            <li>Enforce credential rules</li>
+          </ul>
+        </div>
+        <div class="card" style="background:#FFFAF0; border-color:#FEEBC8;">
+          <h3 style="color:#DD6B20;">CHECK</h3>
+          <p><strong>Audit & Review:</strong></p>
+          <ul style="font-size:12px;">
+            <li>Conduct internal audits</li>
+            <li>Inspect firewall log data</li>
+            <li>Track vulnerability metrics</li>
+            <li>Executive review meetings</li>
+          </ul>
+        </div>
+        <div class="card" style="background:#FFF5F5; border-color:#FED7D7;">
+          <h3 style="color:#C53030;">ACT</h3>
+          <p><strong>Continual Improvement:</strong></p>
+          <ul style="font-size:12px;">
+            <li>Remediate audit findings</li>
+            <li>Update defensive baselines</li>
+            <li>Refine security policies</li>
+            <li>Enhance control resilience</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>CSE 4105: Computer Security</span>
+        <span>Shafikul Islam Marwan (220121)</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: ISO 27001 Modern Domains -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>ISO/IEC 27001:2022 Control Structure</h2>
+        <span class="tag">Annex A (93 Controls)</span>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3>Organizational Controls</h3>
+            <span style="background:var(--primary); color:white; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:bold;">37 Controls</span>
+          </div>
+          <ul style="margin-top:8px;">
+            <li>Information security policies and governance oversight</li>
+            <li>Asset management, classification, and acceptable use</li>
+            <li>Threat intelligence and third-party supplier security</li>
+            <li>Information security incident management workflows</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3>People Controls</h3>
+            <span style="background:var(--accent); color:white; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:bold;">8 Controls</span>
+          </div>
+          <ul style="margin-top:8px;">
+            <li>Pre-employment screening and reference verification</li>
+            <li>Confidentiality and Non-Disclosure Agreements (NDAs)</li>
+            <li>Ongoing security awareness, education, and anti-phishing drills</li>
+            <li>Disciplinary action frameworks and post-offboarding account disabling</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3>Physical Controls</h3>
+            <span style="background:#319795; color:white; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:bold;">14 Controls</span>
+          </div>
+          <ul style="margin-top:8px;">
+            <li>Physical security perimeter barriers and biometric access badges</li>
+            <li>Equipment placement and physical environmental protection</li>
+            <li>Clean desk and clear screen operational discipline</li>
+            <li>Secure disposal of physical storage media and hard drives</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3>Technological Controls</h3>
+            <span style="background:#805AD5; color:white; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:bold;">34 Controls</span>
+          </div>
+          <ul style="margin-top:8px;">
+            <li>Privileged access management and least-privilege IAM</li>
+            <li>Cryptographic algorithms (AES-256, TLS 1.3)</li>
+            <li>Secure application development lifecycle and code verification</li>
+            <li>Network segregation, DMZ separation, and log ingestion</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>CSE 4105: Computer Security</span>
+        <span>Shafikul Islam Marwan (220121)</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 12: Documentation Hierarchy -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Security Documentation Hierarchy</h2>
+        <span class="tag">Policies to Procedures</span>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px; flex:1;">
+        <div style="display:flex; background:#EBF8FF; border:1px solid #BEE3F8; border-radius:8px; padding:12px; gap:15px; align-items:center;">
+          <div style="background:var(--primary); color:white; font-weight:bold; padding:8px 14px; border-radius:6px; min-width:110px; text-align:center;">POLICY</div>
+          <div>
+            <div style="font-size:13px; font-weight:bold; color:var(--primary);">High-Level Strategic Directive (Mandatory — What & Why)</div>
+            <div style="font-size:12px; color:#4A5568;">Example: <em>"All university computing assets must enforce strict access authorization to protect student confidentiality."</em></div>
+          </div>
+        </div>
+        <div style="display:flex; background:#F0FFF4; border:1px solid #C6F6D5; border-radius:8px; padding:12px; gap:15px; align-items:center;">
+          <div style="background:var(--accent); color:white; font-weight:bold; padding:8px 14px; border-radius:6px; min-width:110px; text-align:center;">STANDARD</div>
+          <div>
+            <div style="font-size:13px; font-weight:bold; color:var(--accent);">Specific Mandatory Baseline (Mandatory — The Rule & Threshold)</div>
+            <div style="font-size:12px; color:#4A5568;">Example: <em>"Passwords must be at least 14 characters, require MFA, and databases must use AES-256 encryption."</em></div>
+          </div>
+        </div>
+        <div style="display:flex; background:#FFFAF0; border:1px solid #FEEBC8; border-radius:8px; padding:12px; gap:15px; align-items:center;">
+          <div style="background:#DD6B20; color:white; font-weight:bold; padding:8px 14px; border-radius:6px; min-width:110px; text-align:center;">PROCEDURE</div>
+          <div>
+            <div style="font-size:13px; font-weight:bold; color:#DD6B20;">Step-by-Step Tactical Workflow (Mandatory — How to Execute)</div>
+            <div style="font-size:12px; color:#4A5568;">Example: <em>"Step 1: Receive HR separation ticket. Step 2: Disable AD login within 60 mins. Step 3: Revoke VPN tokens."</em></div>
+          </div>
+        </div>
+        <div style="display:flex; background:#FAF5FF; border:1px solid #E9D8FD; border-radius:8px; padding:12px; gap:15px; align-items:center;">
+          <div style="background:#805AD5; color:white; font-weight:bold; padding:8px 14px; border-radius:6px; min-width:110px; text-align:center;">GUIDELINE</div>
+          <div>
+            <div style="font-size:13px; font-weight:bold; color:#805AD5;">Advisory Best Practices (Discretionary — Recommendations)</div>
+            <div style="font-size:12px; color:#4A5568;">Example: <em>"Faculty working remotely are recommended to position laptop screens away from public view in coffee shops."</em></div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>CSE 4105: Computer Security</span>
+        <span>Shafikul Islam Marwan (220121)</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 13: Evaluation & Assurance -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Security Evaluation & Assurance</h2>
+        <span class="tag">Testing & Verification</span>
+      </div>
+      <div class="grid-3">
+        <div class="card" style="border-top:4px solid var(--accent);">
+          <h3>Vulnerability Assessment (VA)</h3>
+          <p style="font-size:11px; font-weight:bold; color:var(--accent); text-transform:uppercase; margin-bottom:8px;">Breadth over Depth (Automated)</p>
+          <ul>
+            <li>Automated scanning using Nessus, OpenVAS, or Qualys.</li>
+            <li>Identifies missing software patches, default ports, and known CVE bugs.</li>
+            <li>Delivers a broad, prioritized inventory of weak points for rapid remediation.</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:4px solid #E53E3E;">
+          <h3>Penetration Testing (Pen-Test)</h3>
+          <p style="font-size:11px; font-weight:bold; color:#E53E3E; text-transform:uppercase; margin-bottom:8px;">Depth over Breadth (Authorized Attack)</p>
+          <ul>
+            <li>Certified ethical hackers simulate real-world Advanced Persistent Threats (APT).</li>
+            <li>Actively exploits flaws, chains vulnerabilities, and tests lateral movement.</li>
+            <li>Conducted as Black-Box, Gray-Box, or White-Box engagements.</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:4px solid #319795;">
+          <h3>Security Audits & Assurance</h3>
+          <p style="font-size:11px; font-weight:bold; color:#319795; text-transform:uppercase; margin-bottom:8px;">Compliance & Process Verification</p>
+          <ul>
+            <li>Formal, evidence-based assessment against standards (ISO 27001, SOC 2).</li>
+            <li>Verifies whether policies are actively enforced rather than mere shelf-ware.</li>
+            <li>Tracks key operational KPIs: Mean Time to Detect (MTTD) and Patch Compliance %.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>CSE 4105: Computer Security</span>
+        <span>Shafikul Islam Marwan (220121)</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 14: Practical Case Study -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>End-to-End Case Study: University Examination Portal</h2>
+        <span class="tag">Real-World Integration</span>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3 style="color:#2B6CB0;">1. Asset & Owner</h3>
+          <p><strong>Asset:</strong> Central Examination & Grade Database.</p>
+          <p><strong>Owner:</strong> Controller of Examinations, JUST.</p>
+          <p><strong>Classification:</strong> Highly Confidential / Restricted.</p>
+        </div>
+        <div class="card">
+          <h3 style="color:#E53E3E;">2. Threat & Vulnerability</h3>
+          <p><strong>Threat:</strong> Rogue actors attempting SQL Injection or credential stuffing.</p>
+          <p><strong>Vulnerability:</strong> Missing input sanitization & faculty portal lacked mandatory MFA.</p>
+        </div>
+        <div class="card">
+          <h3 style="color:#DD6B20;">3. Risk Rating</h3>
+          <p><strong>Likelihood:</strong> Moderate (3) | <strong>Impact:</strong> Critical (5)</p>
+          <p><strong>Score:</strong> 15 / 25 (High Risk Priority).</p>
+          <p>Unacceptable risk requiring immediate executive mitigation.</p>
+        </div>
+        <div class="card">
+          <h3 style="color:#319795;">4. Treatment Deployed</h3>
+          <p><strong>Mitigate:</strong> Parameterized SQL, enforced FIDO2 MFA, deployed Web Application Firewall (WAF).</p>
+          <p><strong>Transfer:</strong> Automated immutable cloud backup with 4-hour RTO SLA.</p>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--primary);">5. Governance Alignment</h3>
+          <p><strong>Policy:</strong> Grade Submission & Academic Integrity Policy.</p>
+          <p><strong>Standard:</strong> Minimum 16-character passkeys, AES-256 DB encryption.</p>
+          <p><strong>Procedure:</strong> Dual-faculty signoff for grade edits.</p>
+        </div>
+        <div class="card">
+          <h3 style="color:#805AD5;">6. Assurance & Audit</h3>
+          <p>Quarterly external black-box pen-testing conducted prior to semester finals.</p>
+          <p>Continuous SIEM log monitoring for abnormal grade modification spikes.</p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>CSE 4105: Computer Security</span>
+        <span>Shafikul Islam Marwan (220121)</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 15: Key Takeaways -->
+    <div class="slide">
+      <div class="slide-header">
+        <h2>Summary & Key Takeaways for CLO2</h2>
+        <span class="tag">Core Takeaways</span>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>1. Asset Valuation Precedes Protection</h3>
+          <p>You cannot defend what you do not understand or value. Clear asset ownership and classification form the bedrock of cybersecurity.</p>
+        </div>
+        <div class="card">
+          <h3>2. Risk is a Calculated Balance</h3>
+          <p>Security risk blends threat vectors, exploitability, and organizational loss. Both qualitative speed and quantitative financial formulas (ALE) are required.</p>
+        </div>
+        <div class="card">
+          <h3>3. Treatment Requires Deliberate Choice</h3>
+          <p>Organizations must strategically select between mitigation, transference, avoidance, and documented acceptance while tracking residual risk.</p>
+        </div>
+        <div class="card">
+          <h3>4. Governance Sets the Direction</h3>
+          <p>Governance directs accountability and strategy; operational management handles implementation; ISMS (ISO 27001) makes the system repeatable.</p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>CSE 4105: Computer Security</span>
+        <span>Shafikul Islam Marwan (220121)</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 16: Thank You -->
+    <div class="slide title-slide">
+      <h1 style="font-size:46px; margin-bottom:10px;">THANK YOU</h1>
+      <h3 style="font-size:22px; color:#00ADB5; margin-bottom:30px;">Questions & Academic Discussion</h3>
+      
+      <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); border-radius:10px; padding:25px 35px; max-width:600px; margin:0 auto; text-align:center;">
+        <div style="font-size:20px; font-weight:700; color:white;">Shafikul Islam Marwan</div>
+        <div style="font-size:14px; color:#CAF0F8; margin-top:5px;">
+          Student ID: <strong>220121</strong> &nbsp;|&nbsp; Registration No: <strong>2201020</strong><br>
+          Department of Computer Science & Engineering<br>
+          Jashore University of Science and Technology (JUST)
+        </div>
+        <div style="margin-top:15px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.2); font-size:13px; color:#A0AEC0;">
+          Presented to: <strong>Dr. Engr. Md. Arif Rahman</strong>, Assistant Professor, Dept. of CSE, JUST
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const slideNum = document.getElementById('slide-num');
+
+    function showSlide(index) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (index + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+      slideNum.textContent = `${currentSlide + 1} / ${slides.length}`;
+    }
+
+    function nextSlide() { showSlide(currentSlide + 1); }
+    function prevSlide() { showSlide(currentSlide - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') nextSlide();
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+      if (e.key === 'Home') showSlide(0);
+      if (e.key === 'End') showSlide(slides.length - 1);
+    });
+  </script>
+</body>
+</html>
